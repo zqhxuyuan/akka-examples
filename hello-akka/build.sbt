@@ -17,6 +17,9 @@ libraryDependencies ++= Seq(
   "com.typesafe.akka" %% "akka-cluster-sharding" % akkaVersion,
   "com.typesafe.akka" %% "akka-distributed-data" % akkaVersion,
   "com.typesafe.akka" %% "akka-persistence" % akkaVersion,
+  "com.typesafe.akka" %% "akka-stream" % akkaVersion,
+
+  "com.typesafe.akka" %% "akka-stream-kafka" % "0.16",
 
   "org.iq80.leveldb"                    % "leveldb"          % "0.7",
   "org.fusesource.leveldbjni"           % "leveldbjni-all"   % "1.8",

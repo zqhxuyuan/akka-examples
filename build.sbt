@@ -24,3 +24,31 @@ scalaVersion := "2.11.7"
 //lazy val root = (project in file(".")).aggregate(
 //  clusterapp
 //)
+
+lazy val commonSettings = seq (
+  name := "RemoteLookupDemo",
+  version := "1.0",
+  scalaVersion := "2.11.8",
+  libraryDependencies := Seq(
+    "com.typesafe.akka" %% "akka-actor" % "2.5.3",
+    "com.typesafe.akka" %% "akka-remote" % "2.5.3"
+  )
+)
+
+lazy val local = (project in file("local"))
+  .settings(commonSettings)
+  .settings(
+    name := "localSystem"
+  ).aggregate(messages,remote).dependsOn(messages)
+
+lazy val messages = (project in file("messages"))
+  .settings(commonSettings)
+  .settings(
+    name := "commands"
+  )
+
+lazy val remote = (project in file("remote"))
+  .settings(commonSettings)
+  .settings(
+    name := "remoteSystem"
+  ).aggregate(messages).dependsOn(messages)
