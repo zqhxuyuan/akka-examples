@@ -6,3 +6,4 @@ akka examples
 - https://github.com/iandotkelly/akka-bootcamp
 - https://github.com/krasserm/akka-analytics
 - https://github.com/arunma/AkkaNotesSupervision
+- https://github.com/murmelsson/pohjanakka1

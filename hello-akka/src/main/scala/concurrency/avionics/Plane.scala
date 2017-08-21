@@ -1,6 +1,9 @@
 package concurrency.avionics
 
 import akka.actor._
+import scala.concurrent.{Await, Future}
+import scala.concurrent.duration._
+import scala.util.{Failure, Success}
 
 object Plane {
   // Returns the control surface to the Actor that asks for them
@@ -32,7 +35,6 @@ class Plane extends Actor with ActorLogging {
       log info("Plane giving control.")
       // 将一个ActorRef对象返回给sender, 发送者(发送GiveMeControl的对象)就可以接收到一个ActorRef对象
       sender ! controls
-
     case AltitudeUpdate(altitude) =>
       currentAltitude = altitude
       log info(s"Altitude change to : $altitude")

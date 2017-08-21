@@ -7,8 +7,7 @@ import org.scalatest._
 // We can't test a "trait" very easily, so we're going to
 // create a specific EventSource derivation that conforms to
 // the requirements of the trait so that we can test the production code.
-class TestEventSource extends Actor
-  with ProductionEventSource {
+class TestEventSource extends Actor with ProductionEventSource {
   def receive = eventSourceReceive
 }
 
@@ -28,6 +27,7 @@ class EventSourceSpec extends TestKit(ActorSystem("EventSourceSpec"))
       real.receive(RegisterListener(testActor))
       real.listeners must contain (testActor)
     }
+
     "allow us to unregister a listener" in {
       val real = TestActorRef[TestEventSource].underlyingActor
       real.receive(RegisterListener(testActor))
