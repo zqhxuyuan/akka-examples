@@ -1,7 +1,7 @@
-package concurrency.lifecycle.singleactorstartstop
+package concurrency.lifecycle.userguardian
 
-import akka.actor._
 import akka.actor.SupervisorStrategy._
+import akka.actor._
 
 /**
   * 修改监控策略: 改为Stop. 不过由于该Actor是UserGuardian的child

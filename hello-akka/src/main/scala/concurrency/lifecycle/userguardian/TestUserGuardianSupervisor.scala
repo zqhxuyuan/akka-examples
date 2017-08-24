@@ -1,7 +1,7 @@
-package concurrency.lifecycle.singleactorstartstop
+package concurrency.lifecycle.userguardian
 
-import akka.actor._
 import akka.actor.SupervisorStrategy._
+import akka.actor._
 
 /**
   * 自定义SupervisorStrategyConfigurator, 并且在配置文件中配置:
@@ -22,6 +22,11 @@ import akka.actor.SupervisorStrategy._
   * 1. my actor pre start...
   * 2. throw java.lang.Exception: exception
   * 3. my actor post stop...
+  *
+  * Resume策略的输出结果
+  *
+  * 1. my actor pre start...
+  * 2. my actor post stop...
   */
 object TestUserGuardianSupervisor {
   def main(args: Array[String]) {
@@ -71,7 +76,7 @@ class MyActor4 extends Actor {
 class UserGuardianStrategyConfigurator extends SupervisorStrategyConfigurator {
   def create(): SupervisorStrategy = {
     OneForOneStrategy() {
-      case _ => Stop
+      case _ => Resume
     }
   }
 }
