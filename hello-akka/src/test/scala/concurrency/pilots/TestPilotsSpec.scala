@@ -1,6 +1,6 @@
 package concurrency.pilots
 
-import akka.actor.{Props, ActorSystem}
+import akka.actor._
 import akka.testkit.{TestActorRef, TestKit, ImplicitSender}
 import akka.util.Timeout
 import concurrency.flight.LeadFlightAttendantProvider
@@ -41,3 +41,19 @@ class TestPilotsSpec extends TestKit(ActorSystem("TestPilotsSpec"))
     }
   }
 }
+
+class FakePilot extends Actor {
+  override def receive = {
+    case _ =>
+  }
+}
+
+object PilotsSpec {
+  val copilotName = "Mary"
+  val pilotName = "Mark"
+  val configStr = s"""
+      zzz.akka.avionics.flightcrew.copilotName = "$copilotName"
+      zzz.akka.avionics.flightcrew.pilotName = "$pilotName"
+    """
+}
+
