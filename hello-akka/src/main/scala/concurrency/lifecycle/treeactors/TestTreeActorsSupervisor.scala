@@ -6,6 +6,22 @@ import akka.actor.SupervisorStrategy._
 import scala.util.Random
 
 /**
+  *
+    Parent Actor pre start
+    Level1Actor pre start
+    Level2Actor pre start
+    Level3Actor pre start
+
+    [ERROR] [08/24/2017 10:06:59.530] [MyActorLifeCycle-akka.actor.default-dispatcher-16] [akka://MyActorLifeCycle/user/parent/child] Level1Actor exception
+    java.lang.Exception: Level1Actor exception
+
+
+
+    Level3Actor stopped
+    Level2Actor stopped
+    Level1Actor stopped
+
+    child has died
   */
 object TestTreeActorsSupervisor {
   def main(args: Array[String]) {
@@ -22,7 +38,9 @@ object TestTreeActorsSupervisor {
 class Parent2Actor extends Actor {
   override val supervisorStrategy =
     OneForOneStrategy(5, 1 minute) {
-      case _ => Restart
+      case _ =>
+        println("supervised by parent")
+        Restart
     }
 
   val random = new Random()
@@ -57,7 +75,9 @@ class Parent2Actor extends Actor {
 class Level11Actor extends Actor {
   override val supervisorStrategy =
     OneForOneStrategy(5, 1 minute) {
-      case _ => Restart
+      case _ =>
+        println("supervised by level1")
+        Restart
     }
 
   def receive = {
@@ -67,12 +87,12 @@ class Level11Actor extends Actor {
   }
 
   override def preStart() {
-    println("Level1Actor pre start")
+    println("Level1Actor pre start @@" + self)
     context.watch(context.actorOf(Props[Level21Actor], "child_1"))
     super.preStart()
   }
   override def postStop() = {
-    println("Level1Actor stopped")
+    println("Level1Actor stopped @@" + self)
     super.postStop()
   }
   override def preRestart(throwable: Throwable, message: Option[Any]): Unit = {
@@ -88,7 +108,9 @@ class Level11Actor extends Actor {
 class Level21Actor extends Actor {
   override val supervisorStrategy =
     OneForOneStrategy(5, 1 minute) {
-      case _ => Restart
+      case _ =>
+        println("supervised by level2")
+        Restart
     }
 
   def receive = {
@@ -98,12 +120,12 @@ class Level21Actor extends Actor {
   }
 
   override def preStart() {
-    println("Level2Actor pre start")
+    println("Level2Actor pre start @@" + self)
     context.watch(context.actorOf(Props[Level31Actor], "child_1_1"))
     super.preStart()
   }
   override def postStop() = {
-    println("Level2Actor stopped")
+    println("Level2Actor stopped @@" + self)
     super.postStop()
   }
   override def preRestart(throwable: Throwable, message: Option[Any]): Unit = {
@@ -116,11 +138,12 @@ class Level21Actor extends Actor {
   }
 }
 
-
 class Level31Actor extends Actor {
   override val supervisorStrategy =
     OneForOneStrategy(5, 1 minute) {
-      case _ => Restart
+      case _ =>
+        println("supervised by level3")
+        Restart
     }
 
   def receive = {
@@ -130,11 +153,11 @@ class Level31Actor extends Actor {
   }
 
   override def preStart() {
-    println("Level3Actor pre start")
+    println("Level3Actor pre start @@" + self)
     super.preStart()
   }
   override def postStop() = {
-    println("Level3Actor stopped")
+    println("Level3Actor stopped @@" + self)
     super.postStop()
   }
   override def preRestart(throwable: Throwable, message: Option[Any]): Unit = {

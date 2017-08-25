@@ -4,7 +4,7 @@ version := "1.0"
 
 scalaVersion := "2.11.7"
 
-lazy val akkaVersion = "2.5.3"
+lazy val akkaVersion = "2.5.4"
 
 lazy val kafkaVersion = "0.8.2.2"
 

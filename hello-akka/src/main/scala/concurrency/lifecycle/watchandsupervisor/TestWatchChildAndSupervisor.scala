@@ -2,6 +2,7 @@ package concurrency.lifecycle.watchandsupervisor
 
 import akka.actor.SupervisorStrategy._
 import akka.actor.{OneForOneStrategy, _}
+import scala.concurrent.duration._
 
 object TestWatchChildAndSupervisor {
   def main(args: Array[String]) {
@@ -10,6 +11,8 @@ object TestWatchChildAndSupervisor {
     val actor = system.actorOf(Props[ParentActor], "parent")
 
     actor ! "parent msg"
+    actor ! "parent msg"
+    actor ! "parent msg"
 
     Thread.sleep(5000)
     system.terminate()
@@ -17,8 +20,8 @@ object TestWatchChildAndSupervisor {
 }
 
 class ParentActor extends Actor {
-  override val supervisorStrategy = OneForOneStrategy() {
-    case _ => Stop // TODO try change to Stop and watch what would happen
+  override val supervisorStrategy = OneForOneStrategy(2, 1.minutes) {
+    case _ => Restart // TODO try change to Stop and watch what would happen
   }
 
   override def preStart() {

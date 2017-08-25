@@ -7,3 +7,10 @@ akka examples
 - https://github.com/krasserm/akka-analytics
 - https://github.com/arunma/AkkaNotesSupervision
 - https://github.com/murmelsson/pohjanakka1
+- https://github.com/PacktPublishing/Akka-Cookbook
+- https://github.com/cmbaxter/mastering-akka
+- https://github.com/tlockney/akka-edge
+
+scala examples
+
+- https://pavelfatin.com/design-patterns-in-scala/
