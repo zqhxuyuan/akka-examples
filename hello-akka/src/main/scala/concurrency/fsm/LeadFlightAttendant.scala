@@ -1,4 +1,4 @@
-package concurrency.flight
+package concurrency.fsm
 
 import akka.actor.{Actor, ActorRef, Props}
 

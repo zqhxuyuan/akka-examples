@@ -10,6 +10,8 @@ akka examples
 - https://github.com/PacktPublishing/Akka-Cookbook
 - https://github.com/cmbaxter/mastering-akka
 - https://github.com/tlockney/akka-edge
+- https://github.com/sachabarber/SachaBarber.AkkaExamples
+- https://github.com/knoldus/akka-roller
 
 scala examples
 
